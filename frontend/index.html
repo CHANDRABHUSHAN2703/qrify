@@ -1,0 +1,46 @@
+<!-- frontend/index.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>QRify</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>QRify</h1>
+    <button id="mode-toggle">Toggle Dark Mode</button>
+
+    <section id="generate-section">
+      <h2>Link to QR</h2>
+      <input id="url-input" type="text" placeholder="Just put the url here i will take care" required>
+      <div>
+        <label>Color: <input id="color-input" type="color" value="#000000"></label>
+        <label>Size: <input id="size-input" type="number" value="200" min="50" max="1000"></label>
+      </div>
+      <button id="generate-btn">Generate QR</button>
+      <div id="generate-error" style="color: red;"></div>
+      <div id="qr-result">
+        <!-- The generated QR image will appear here -->
+      </div>
+      <button id="download-png" style="display:none;">Download PNG</button>
+      <button id="download-svg" style="display:none;">Download SVG</button>
+    </section>
+
+    <section id="decode-section">
+      <h2>QR Code to Link</h2>
+      <input id="file-input" type="file" accept="image/*,image/png,image/jpeg,image/jpg,image/svg+xml">
+      <button id="decode-btn">Scan QR</button>
+      <div id="decode-error" style="color: red;"></div>
+      <div id="decoded-link"></div>
+    </section>
+
+    <section id="history-section">
+      <h2>History</h2>
+      <ul id="history-list"></ul>
+    </section>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
