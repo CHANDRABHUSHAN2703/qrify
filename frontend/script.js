@@ -1,6 +1,6 @@
 // frontend/script.js
 
-const BACKEND_URL = "http://localhost:3000";
+const BACKEND_URL = "https://qrify-backend-r647.onrender.com";
 
 // Toggle dark mode
 document.getElementById('mode-toggle').addEventListener('click', () => {
