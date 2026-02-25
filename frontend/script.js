@@ -117,9 +117,9 @@ document.getElementById('decode-btn').addEventListener('click', async () => {
     decoded.appendChild(a);
   }
 
-  addHistoryItem('Decode', json.text);
-  loadHistory();
+  // addHistoryItem('Decode', json.text);
+  // loadHistory();
 });
 
 // Load history on page load
-loadHistory();
+// loadHistory();

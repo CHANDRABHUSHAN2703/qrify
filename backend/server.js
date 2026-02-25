@@ -15,7 +15,10 @@ const jsQR = require('jsqr');
 
 
 app.use(cors({
-  origin: process.env.FRONTEND_URL || 'http://localhost:5500',
+  origin: [
+    "http://localhost:5500",
+    "https://qrify-eight.vercel.app"
+  ],
   credentials: true
 }));
 
