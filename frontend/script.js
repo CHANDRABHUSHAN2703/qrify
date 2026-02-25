@@ -8,26 +8,26 @@ document.getElementById('mode-toggle').addEventListener('click', () => {
 });
 
 // Helper to add an item to history list
-function addHistoryItem(action, text) {
-  const li = document.createElement('li');
-  li.textContent = `${new Date().toLocaleString()}: [${action}] ${text}`;
-  document.getElementById('history-list').prepend(li);
-}
+// function addHistoryItem(action, text) {
+//   const li = document.createElement('li');
+//   li.textContent = `${new Date().toLocaleString()}: [${action}] ${text}`;
+//   document.getElementById('history-list').prepend(li);
+// }
 
 // Fetch and display history from the backend
-async function loadHistory() {
-  const res = await fetch(`${BACKEND_URL}/api/history`);
-  const list = document.getElementById('history-list');
-  list.innerHTML = '';
-  if (res.ok) {
-    const data = await res.json();
-    data.forEach(item => {
-      const li = document.createElement('li');
-      li.textContent = `${new Date(item.created_at).toLocaleString()}: [${item.action}] ${item.input_text || ''} → ${item.output_text || ''}`;
-      list.appendChild(li);
-    });
-  }
-}
+// async function loadHistory() {
+//   const res = await fetch(`${BACKEND_URL}/api/history`);
+//   const list = document.getElementById('history-list');
+//   list.innerHTML = '';
+//   if (res.ok) {
+//     const data = await res.json();
+//     data.forEach(item => {
+//       const li = document.createElement('li');
+//       li.textContent = `${new Date(item.created_at).toLocaleString()}: [${item.action}] ${item.input_text || ''} → ${item.output_text || ''}`;
+//       list.appendChild(li);
+//     });
+//   }
+// }
 
 // Generate QR code
 document.getElementById('generate-btn').addEventListener('click', async () => {
@@ -79,8 +79,8 @@ document.getElementById('generate-btn').addEventListener('click', async () => {
     a.click();
   };
 
-  addHistoryItem('Generate', url);
-  loadHistory();
+  // addHistoryItem('Generate', url);
+  // loadHistory();
 });
 
 // Decode QR code from uploaded image

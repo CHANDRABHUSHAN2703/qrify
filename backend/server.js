@@ -11,7 +11,7 @@ const multer = require('multer');
 const QRCode = require('qrcode');
 const Jimp = require('jimp');
 const jsQR = require('jsqr');
-const db = require('./db'); 
+// const db = require('./db'); 
 
 
 app.use(cors({
@@ -26,15 +26,15 @@ app.use(bodyParser.json());
 const upload = multer({ storage: multer.memoryStorage() });
 
 // Session ID assignment middleware
-app.use((req, res, next) => {
-  let sid = req.cookies.sessionId;
-  if (!sid) {
-    sid = Date.now().toString(36) + Math.random().toString(36).substring(2);
-    res.cookie('sessionId', sid, { maxAge: 30 * 24 * 60 * 60 * 1000 }); // 30 days
-  }
-  req.sessionId = sid;
-  next();
-});
+// app.use((req, res, next) => {
+//   let sid = req.cookies.sessionId;
+//   if (!sid) {
+//     sid = Date.now().toString(36) + Math.random().toString(36).substring(2);
+//     res.cookie('sessionId', sid, { maxAge: 30 * 24 * 60 * 60 * 1000 }); // 30 days
+//   }
+//   req.sessionId = sid;
+//   next();
+// });
 
 // Generate QR code
 app.post('/api/generate', async (req, res) => {
@@ -51,10 +51,10 @@ app.post('/api/generate', async (req, res) => {
       width: size
     });
 
-    await db.execute(
-      'INSERT INTO history (session_id, action, input_text, output_text, color, size) VALUES (?, ?, ?, ?, ?, ?)',
-      [req.sessionId, 'Generate', url, '', color, size]
-    );
+    // await db.execute(
+    //   'INSERT INTO history (session_id, action, input_text, output_text, color, size) VALUES (?, ?, ?, ?, ?, ?)',
+    //   [req.sessionId, 'Generate', url, '', color, size]
+    // );
 
     res.json({ png: pngDataUrl, svg: svgString });
   } catch (err) {
@@ -75,10 +75,10 @@ app.post('/api/decode', upload.single('qrfile'), async (req, res) => {
     if (!code) return res.status(400).json({ error: 'QR code not found in image' });
 
     const text = code.data;
-    await db.execute(
-      'INSERT INTO history (session_id, action, input_text, output_text, color, size) VALUES (?, ?, ?, ?, ?, ?)',
-      [req.sessionId, 'Decode', req.file.originalname, text, null, null]
-    );
+    // await db.execute(
+    //   'INSERT INTO history (session_id, action, input_text, output_text, color, size) VALUES (?, ?, ?, ?, ?, ?)',
+    //   [req.sessionId, 'Decode', req.file.originalname, text, null, null]
+    // );
 
     res.json({ text });
   } catch (err) {
@@ -88,18 +88,18 @@ app.post('/api/decode', upload.single('qrfile'), async (req, res) => {
 });
 
 // History fetch
-app.get('/api/history', async (req, res) => {
-  try {
-    const [rows] = await db.execute(
-      'SELECT action, input_text, output_text, color, size, created_at FROM history WHERE session_id = ? ORDER BY created_at DESC LIMIT 10',
-      [req.sessionId]
-    );
-    res.json(rows);
-  } catch (err) {
-    console.error('Error fetching history:', err);
-    res.status(500).json({ error: 'Failed to fetch history' });
-  }
-});
+// app.get('/api/history', async (req, res) => {
+//   try {
+//     const [rows] = await db.execute(
+//       'SELECT action, input_text, output_text, color, size, created_at FROM history WHERE session_id = ? ORDER BY created_at DESC LIMIT 10',
+//       [req.sessionId]
+//     );
+//     res.json(rows);
+//   } catch (err) {
+//     console.error('Error fetching history:', err);
+//     res.status(500).json({ error: 'Failed to fetch history' });
+//   }
+// });
 
 // Start server
 const PORT = process.env.PORT || 3000;
