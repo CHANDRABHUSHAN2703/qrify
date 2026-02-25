@@ -82,8 +82,8 @@ app.post('/api/decode', upload.single('qrfile'), async (req, res) => {
 
     res.json({ text });
   } catch (err) {
-    console.error('Error decoding QR:', err);
-    res.status(500).json({ error: 'Failed to decode QR code' });
+    console.error("DB ERROR:", err);
+    res.status(500).json({ error: err.message});
   }
 });
 
